@@ -1,6 +1,6 @@
 name: Autograding Tests
 'on':
-- workflow_dispatch
+- push
 - repository_dispatch
 permissions:
   checks: write
@@ -13,22 +13,20 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
-    - name: Output
-      id: output
+    - name: test1
+      id: test1
       uses: classroom-resources/autograding-io-grader@v1
       with:
-        test-name: Output
+        test-name: test1
         setup-command: g++ main.cpp
         command: "./a.out"
         input: ''
-        expected-output: |-
-          The BMI for this person is 24:563.
+        expected-output: 'The BMI for this person is: 24.563.'
         comparison-method: contains
         timeout: 10
-        max-score: 10
     - name: Autograding Reporter
       uses: classroom-resources/autograding-grading-reporter@v1
       env:
-        OUTPUT_RESULTS: "${{steps.output.outputs.result}}"
+        TEST1_RESULTS: "${{steps.test1.outputs.result}}"
       with:
-        runners: output
+        runners: test1
