@@ -13,7 +13,7 @@ int main() {
   double bmi = kg / (meters*meters);
 
 
-cout << "The BMI for this person is : " << bmi << "."<< endl;
+cout << "The BMI for this person is: " << bmi << "."<< endl;
 
 
 }
