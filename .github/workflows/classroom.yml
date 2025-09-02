@@ -22,7 +22,7 @@ jobs:
         command: "./a.out"
         input: ''
         expected-output: |-
-          The BMI for this person is 24:563.
+          The BMI for this person is: 24.563.
         comparison-method: contains
         timeout: 10
         max-score: 10
