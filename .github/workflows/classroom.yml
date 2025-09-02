@@ -1,0 +1,34 @@
+name: Autograding Tests
+'on':
+- workflow_dispatch
+- repository_dispatch
+permissions:
+  checks: write
+  actions: read
+  contents: read
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: Output
+      id: output
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Output
+        setup-command: g++ main.cpp
+        command: "./a.out"
+        input: ''
+        expected-output: |-
+          The BMI for this person is 24:563.
+        comparison-method: contains
+        timeout: 10
+        max-score: 10
+    - name: Autograding Reporter
+      uses: classroom-resources/autograding-grading-reporter@v1
+      env:
+        OUTPUT_RESULTS: "${{steps.output.outputs.result}}"
+      with:
+        runners: output
